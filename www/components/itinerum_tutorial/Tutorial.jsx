@@ -7,12 +7,33 @@ class TutorialComponent extends React.Component {
         result: React.PropTypes.object,
         schema: React.PropTypes.object
     }
+    constructor(props) {
+      super(props);
+      this.state = {
+        schema: {
+          fname: this.props.fname,
+          lname: this.props.lname
+        }
+      };
+      this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(event) {
+      this.setState({
+        schema: {
+          fname: event.target.value,
+          lname: 'Ruzekowicz'
+        }
+      });
+    }
     render() {
         return(
                 <div className="content-wrapper">
                     <div>
                         First Name -> {this.props.schema.fname}
                         Last Name -> {this.props.schema.lname}
+                    </div>
+                    <div>
+                    <input type="text" value={this.state.schema.fname} onChange={this.handleChange} />
                     </div>
                     <div className="row">
                         {/* bootstrap grid as margin */}
