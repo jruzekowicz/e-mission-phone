@@ -15,12 +15,21 @@ class TutorialComponent extends React.Component {
           lname: this.props.schema.lname
         }
       };
-      this.handleChange = this.handleChange.bind(this);
+      this.handlefnameChange = this.handlefnameChange.bind(this);
+      this.handlelnameChange = this.handlelnameChange.bind(this);
     }
-    handleChange(event) {
+    handlefnameChange(event) {
       this.setState({
         schema: {
           fname: event.target.value,
+          lname: this.state.schema.lname
+        }
+      });
+    }
+    handlelnameChange(event) {
+      this.setState({
+        schema: {
+          fname: this.state.schema.fname,
           lname: event.target.value
         }
       });
@@ -33,7 +42,8 @@ class TutorialComponent extends React.Component {
                         Last Name -> {this.state.schema.lname}
                     </div>
                     <div>
-                    <input type="text" value={this.state.schema.fname} onChange={this.handleChange} />
+                    <input type="text" value={this.state.schema.fname} onChange={this.handlefnameChange} />
+                    <input type="text" value={this.state.schema.lname} onChange={this.handlelnameChange} />
                     </div>
                     <div className="row">
                         {/* bootstrap grid as margin */}
