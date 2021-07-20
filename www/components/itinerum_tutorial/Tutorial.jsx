@@ -11,8 +11,8 @@ class TutorialComponent extends React.Component {
       super(props);
       this.state = {
         schema: {
-          fname: this.props.fname,
-          lname: this.props.lname
+          fname: this.props.schema.fname,
+          lname: this.props.schema.lname
         }
       };
       this.handleChange = this.handleChange.bind(this);
@@ -21,7 +21,7 @@ class TutorialComponent extends React.Component {
       this.setState({
         schema: {
           fname: event.target.value,
-          lname: 'Ruzekowicz'
+          lname: event.target.value
         }
       });
     }
@@ -29,8 +29,8 @@ class TutorialComponent extends React.Component {
         return(
                 <div className="content-wrapper">
                     <div>
-                        First Name -> {this.props.schema.fname}
-                        Last Name -> {this.props.schema.lname}
+                        First Name -> {this.state.schema.fname}
+                        Last Name -> {this.state.schema.lname}
                     </div>
                     <div>
                     <input type="text" value={this.state.schema.fname} onChange={this.handleChange} />
