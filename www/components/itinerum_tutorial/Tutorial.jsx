@@ -5,7 +5,8 @@ class TutorialComponent extends React.Component {
     propTypes: {
         isValid: React.PropTypes.bool,
         result: React.PropTypes.object,
-        schema: React.PropTypes.object
+        schema: React.PropTypes.object,
+        changeresult: React.PropTypes.func
     }
     constructor(props) {
       super(props);
@@ -19,6 +20,7 @@ class TutorialComponent extends React.Component {
       this.handlelnameChange = this.handlelnameChange.bind(this);
     }
     handlefnameChange(event) {
+      this.props.changeresult('fname', event.target.value)
       newresult = this.state.result
       newresult.fname = event.target.value
       this.setState(newresult)

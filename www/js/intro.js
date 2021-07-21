@@ -26,8 +26,12 @@ angular.module('emission.intro', ['emission.splash.startprefs',
   $scope.surveyState = { 
     isValid: true, 
     schema: {'fname':'Jenna', 'lname':'Ruzekowicz'},
-    result: {'fname': 'Kyle', 'lname': 'Fitzsimmons'} 
+    result: {'fname':'', 'lname':''} 
   };
+  $scope.changeresult = function(field, value) {
+    $scope.surveyState.result.field = value
+  };
+
   $scope.platform = $window.device.platform;
   $scope.osver = $window.device.version.split(".")[0];
   if($scope.platform.toLowerCase() == "android") {

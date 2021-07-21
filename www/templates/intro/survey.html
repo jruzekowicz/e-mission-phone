@@ -1,13 +1,8 @@
 <ion-content class="has-footer">
-  <tutorial isValid="surveyState.isValid" result="surveyState.result" schema="surveyState.schema"/>
-</ion-content>
-<ion-content class="has-footer">
-  <div className="content-wrapper">
-    <div>From angular: {{surveyState.result.lname}}, {{surveyState.result.fname}} </div>
-    <div> TEST PRINT </div>
-  </div>
+  <tutorial isValid="surveyState.isValid" result="surveyState.result" schema="surveyState.schema" changeresult="changeresult"/>
 </ion-content>
 <ion-footer-bar class="no-bgColor" id="intro-footer">
+  <div> First name-> {{surveyState.result.fname}} </div>
   <button class="button button-block button-outline button-positive" ng-click="next()">
     SUBMIT
   </button>
