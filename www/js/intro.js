@@ -29,7 +29,12 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     result: {'fname':'', 'lname':''} 
   };
   $scope.changeresult = function(field, value) {
-    $scope.surveyState.result.field = value
+    if (field == 'fname') {
+      $scope.surveyState.result.fname = value
+    }
+    if (field == 'lname') {
+      $scope.surveyState.result.lname = value
+    }
   };
 
   $scope.platform = $window.device.platform;

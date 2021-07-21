@@ -26,6 +26,7 @@ class TutorialComponent extends React.Component {
       this.setState(newresult)
     }
     handlelnameChange(event) {
+      this.props.changeresult('lname', event.target.value)
       newresult = this.state.result
       newresult.lname = event.target.value
       this.setState(newresult)
