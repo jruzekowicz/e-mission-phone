@@ -26,7 +26,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
   $scope.surveyState = { 
     isValid: true, 
     schema: {'fname':'Jenna', 'lname':'Ruzekowicz'},
-    result: {} 
+    result: {'fname': 'Kyle', 'lname': 'Fitzsimmons'} 
   };
   $scope.platform = $window.device.platform;
   $scope.osver = $window.device.version.split(".")[0];
@@ -186,4 +186,3 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     StartPrefs.loadPreferredScreen();
   }
 });
-
