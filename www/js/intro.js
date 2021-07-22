@@ -111,6 +111,11 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     $state.go('root.main.heatmap');
   };
 
+  $scope.jsonfetching = function(url) {
+    json = $http.get(url);
+    $scope.surveyState.schema = json;
+  }
+
   $scope.agree = function() {
     StartPrefs.markConsented().then(function(response) {
       $ionicHistory.clearHistory();
@@ -120,16 +125,9 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         StartPrefs.loadPreferredScreen();
       }
     });
+   url = 'https://api.hungry.wales/mobile/v2';
+   $scope.jsonfetching(url);
   };
-
-  $scope.jsonfetching = function() {
-    url = 'https://api.hungry.wales/mobile/v2'
-    json = $http.get(url).then( fucntion(result) {
-      json = JSON.stringify(result);
-      return json;
-    });
-    $scope.surveyState.schema = json;
-  }
 
   $scope.next = function() {
     $scope.getIntroBox().next();
