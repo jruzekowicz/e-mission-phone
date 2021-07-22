@@ -113,16 +113,23 @@ angular.module('emission.intro', ['emission.splash.startprefs',
 
   $scope.jsonfetching = function(url) {
     data_dict = {
-     SOME DATA HERE (ask Kyle)
+      'user': {
+        'uuid': ???,
+        'model': ???,
+        'itinerumVersion': '99c',
+        'os': ???,
+        'osVersion': ???,
+        'createdAt': ???
+      },
+      'surveyName': ???
     };
-    r = fetch(url, {
+    fetch(url, {
       method: 'POST',
       body: JSON.stringify(data_dict)
     })
       .then(function(response) {
-        $scope.surveyState.schema = response;
+        $scope.surveyState.schema = response.json();
       });
-    console.assert(r.status_code == 201);
   }
 
   $scope.agree = function() {
@@ -134,7 +141,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         StartPrefs.loadPreferredScreen();
       }
     });
-   url = 'https://api.hungry.wales/mobile/v2';
+   url = 'https://api.hungry.wales/mobile/v2i/create';
    $scope.jsonfetching(url);
   };
 
