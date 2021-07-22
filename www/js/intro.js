@@ -112,8 +112,17 @@ angular.module('emission.intro', ['emission.splash.startprefs',
   };
 
   $scope.jsonfetching = function(url) {
-    json = $http.get(url);
-    $scope.surveyState.schema = json;
+    data_dict = {
+     SOME DATA HERE (ask Kyle)
+    };
+    r = fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data_dict)
+    })
+      .then(function(response) {
+        $scope.surveyState.schema = response;
+      });
+    console.assert(r.status_code == 201);
   }
 
   $scope.agree = function() {
