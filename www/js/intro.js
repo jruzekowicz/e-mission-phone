@@ -122,6 +122,15 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     });
   };
 
+  $scope.jsonfetching = function() {
+    url = 'https://api.hungry.wales/mobile/v2'
+    json = $http.get(url).then( fucntion(result) {
+      json = JSON.stringify(result);
+      return json;
+    });
+    $scope.surveyState.schema = json;
+  }
+
   $scope.next = function() {
     $scope.getIntroBox().next();
   };
