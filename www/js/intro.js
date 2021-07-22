@@ -111,22 +111,19 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     $state.go('root.main.heatmap');
   };
 
-  $scope.jsonfetching = function(url) {
+  $scope.fetchItinerumSurvey = function(url) {
     data_dict = {
       'user': {
-        'uuid': ???,
-        'model': ???,
+        'uuid': $window.device.uuid,
+        'model': $window.device.model,
         'itinerumVersion': '99c',
-        'os': ???,
-        'osVersion': ???,
-        'createdAt': ???
+        'os': 'android',
+        'osVersion': $window.device.version,
+        'createdAt': '2021-07-22T15:28:54-04:00'
       },
-      'surveyName': ???
+      'surveyName': 'test'
     };
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data_dict)
-    })
+    $http.post(url, data_dict)
       .then(function(response) {
         $scope.surveyState.schema = response.json();
       });
@@ -142,7 +139,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
       }
     });
    url = 'https://api.hungry.wales/mobile/v2i/create';
-   $scope.jsonfetching(url);
+   $scope.fetchItinerumSurvey(url);
   };
 
   $scope.next = function() {
