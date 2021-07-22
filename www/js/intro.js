@@ -28,13 +28,8 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     schema: {'fname':'Jenna', 'lname':'Ruzekowicz'},
     result: {'fname':'', 'lname':''} 
   };
-  $scope.changeresult = function(field, value) {
-    if (field == 'fname') {
-      $scope.surveyState.result.fname = value
-    }
-    if (field == 'lname') {
-      $scope.surveyState.result.lname = value
-    }
+  $scope.changeresult = function(value) {
+      $scope.surveyState.result = value
   };
 
   $scope.platform = $window.device.platform;
