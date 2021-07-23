@@ -111,31 +111,30 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     $state.go('root.main.heatmap');
   };
 
-  $scope.os = function() {
-    if (ionic.Platform.isIOS()) {
-      $scope.OS = 'ios';
-    }
-    else {
-      $scope.OS = 'android';
-    }
-  }
-
   $scope.fetchItinerumSurvey = function(url) {
-     var data_dict = {
+    var data_dict = {
        'user': {
-         'uuid': $window.device.uuid,
+         'uuid': $window.device.uuid, (still needs to be changed)
          'model': $window.device.model,
          'itinerumVersion': '99c',
-         'os': $scope.OS,
+         'os': ionic.Platform.platform(),
          'osVersion': $window.device.version,
-         'createdAt': '2021-07-22T15:28:54-04:00'
        },
        'surveyName': 'test'
      };
-     $http.post(url, data_dict)
-       .then(function(response) {
-         $scope.surveyState.schema = response;
-       });
+     console.log(data_dict);
+     const options = {
+       method: 'post',
+       data: data_dict,
+       responseType: 'json'
+     }
+     cordova.plugin.http.sendRequest(url, options,
+     function(response) {
+       $scope.surveyState.schema = response;
+       console.log(response);
+     }, function(error) {
+       consoole.log(error);
+     });
    };
 
   $scope.agree = function() {
@@ -148,7 +147,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
       }
     });
     $scope.os();
-    var url = 'https://api.hungry.wales/mobile/v2/create';
+    var url = 'http://198.245.50.61/mobile/v2/create';
     $scope.fetchItinerumSurvey(url);
   };
 
