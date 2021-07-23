@@ -21,7 +21,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
 })
 
 .controller('IntroCtrl', function($scope, $state, $window, $ionicSlideBoxDelegate,
-    $ionicPopup, $ionicHistory, ionicToast, $timeout, CommHelper, StartPrefs, UpdateCheck, $translate, i18nUtils) {
+    $ionicPopup, $ionicHistory, ionicToast, $timeout, CommHelper, StartPrefs, UpdateCheck, $translate, i18nUtils, $http) {
 
   $scope.surveyState = { 
     isValid: true, 
@@ -111,26 +111,23 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     $state.go('root.main.heatmap');
   };
 
-  $scope.jsonfetching = function(url) {
-    data_dict = {
-      'user': {
-        'uuid': ???,
-        'model': ???,
-        'itinerumVersion': '99c',
-        'os': ???,
-        'osVersion': ???,
-        'createdAt': ???
-      },
-      'surveyName': ???
-    };
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data_dict)
-    })
-      .then(function(response) {
-        $scope.surveyState.schema = response.json();
-      });
-  }
+  $scope.fetchItinerumSurvey = function(url) {
+     var data_dict = {
+       'user': {
+         'uuid': $window.device.uuid,
+         'model': $window.device.model,
+         'itinerumVersion': '99c',
+         'os': 'android',
+         'osVersion': $window.device.version,
+         'createdAt': '2021-07-22T15:28:54-04:00'
+       },
+       'surveyName': 'test'
+     };
+     $http.post(url, data_dict)
+       .then(function(response) {
+         $scope.surveyState.schema = response;
+       });
+   };
 
   $scope.agree = function() {
     StartPrefs.markConsented().then(function(response) {
@@ -141,8 +138,8 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         StartPrefs.loadPreferredScreen();
       }
     });
-   url = 'https://api.hungry.wales/mobile/v2i/create';
-   $scope.jsonfetching(url);
+    var url = 'https://api.hungry.wales/mobile/v2i/create';
+    $scope.fetchItinerumSurvey(url);
   };
 
   $scope.next = function() {
