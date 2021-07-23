@@ -138,7 +138,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         StartPrefs.loadPreferredScreen();
       }
     });
-    var url = 'https://api.hungry.wales/mobile/v2i/create';
+    var url = 'https://api.hungry.wales/mobile/v2/create';
     $scope.fetchItinerumSurvey(url);
   };
 
