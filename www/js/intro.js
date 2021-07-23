@@ -111,13 +111,22 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     $state.go('root.main.heatmap');
   };
 
+  $scope.os = function() {
+    if (ionic.Platform.isIOS()) {
+      $scope.OS = 'ios';
+    }
+    else {
+      $scope.OS = 'android';
+    }
+  }
+
   $scope.fetchItinerumSurvey = function(url) {
      var data_dict = {
        'user': {
          'uuid': $window.device.uuid,
          'model': $window.device.model,
          'itinerumVersion': '99c',
-         'os': 'android',
+         'os': $scope.OS,
          'osVersion': $window.device.version,
          'createdAt': '2021-07-22T15:28:54-04:00'
        },
@@ -138,6 +147,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         StartPrefs.loadPreferredScreen();
       }
     });
+    $scope.os();
     var url = 'https://api.hungry.wales/mobile/v2/create';
     $scope.fetchItinerumSurvey(url);
   };
