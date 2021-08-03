@@ -112,22 +112,31 @@ angular.module('emission.intro', ['emission.splash.startprefs',
   };
 
   $scope.fetchItinerumSurvey = function(url) {
-    data_dict = {
-      'user': {
-        'uuid': $window.device.uuid,
-        'model': $window.device.model,
-        'itinerumVersion': '99c',
-        'os': 'android',
-        'osVersion': $window.device.version,
-        'createdAt': '2021-07-22T15:28:54-04:00'
-      },
-      'surveyName': 'test'
-    };
-    $http.post(url, data_dict)
-      .then(function(response) {
-        $scope.surveyState.schema = response.json();
+     var userProfile = CommHelper.getUser();
+     var data_dict = {
+        'user': {
+          'uuid': userProfile.user_id['$uuid'],
+          'model': $window.device.model,
+          'itinerumVersion': '99c',
+          'os': ionic.Platform.platform(),
+          'osVersion': $window.device.version,
+        },
+        'surveyName': 'test'
+      };
+      console.log(data_dict);
+      const options = {
+        method: 'post',
+        data: data_dict,
+        responseType: 'json'
+      }
+      cordova.plugin.http.sendRequest(url, options,
+      function(response) {
+        $scope.surveyState.schema = response;
+        console.log(response);
+      }, function(error) {
+        consoole.log(error);
       });
-  }
+    };
 
   $scope.agree = function() {
     StartPrefs.markConsented().then(function(response) {
@@ -138,8 +147,6 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         StartPrefs.loadPreferredScreen();
       }
     });
-   url = 'https://api.hungry.wales/mobile/v2i/create';
-   $scope.fetchItinerumSurvey(url);
   };
 
   $scope.next = function() {
@@ -184,6 +191,8 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     }, function(error) {
         $scope.alertError('Sign in error', error);
     });
+  var url = 'http://198.245.50.61/mobile/v2/create';
+  $scope.fetchItinerumSurvey(url);
   };
 
   // Called each time the slide changes
