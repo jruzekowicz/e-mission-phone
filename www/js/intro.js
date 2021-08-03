@@ -183,8 +183,6 @@ angular.module('emission.intro', ['emission.splash.startprefs',
              client: retVal
             });
           });
-          var url = 'http://198.245.50.61/mobile/v2/create';
-          $scope.fetchItinerumSurvey(url);
           $scope.finish();
         }, function(errorResult) {
           $scope.alertError('User registration error', errorResult);
