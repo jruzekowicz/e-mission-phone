@@ -21,7 +21,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
 })
 
 .controller('IntroCtrl', function($scope, $state, $window, $ionicSlideBoxDelegate,
-    $ionicPopup, $ionicHistory, ionicToast, $timeout, CommHelper, StartPrefs, UpdateCheck, $translate, i18nUtils) {
+    $ionicPopup, $ionicHistory, ionicToast, $timeout, CommHelper, StartPrefs, UpdateCheck, $translate, i18nUtils, $http) {
 
   $scope.surveyState = { 
     isValid: true, 
@@ -136,7 +136,8 @@ angular.module('emission.intro', ['emission.splash.startprefs',
       }, function(error) {
         consoole.log(error);
       });
-    };
+   $scope.next();
+   };
 
   $scope.agree = function() {
     StartPrefs.markConsented().then(function(response) {
