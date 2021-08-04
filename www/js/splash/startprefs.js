@@ -29,6 +29,7 @@ angular.module('emission.splash.startprefs', ['emission.plugin.logger',
     }
 
     var writeConsentToNative = function() {
+      console.log("getting into write consent to native");
       return $window.cordova.plugins.BEMDataCollection.markConsented($rootScope.req_consent);
     };
 
@@ -38,11 +39,15 @@ angular.module('emission.splash.startprefs', ['emission.plugin.logger',
       // mark in native storage
       return startprefs.readConsentState().then(writeConsentToNative).then(function(response) {
           // mark in local storage
+          console.log("before the KVStore.set");
           KVStore.set(DATA_COLLECTION_CONSENTED_PROTOCOL,
             $rootScope.req_consent);
+          console.log("after the KVStore.set");
           // mark in local variable as well
           $rootScope.curr_consented = angular.copy($rootScope.req_consent);
+          console.log("after setting curr_consented");
           $rootScope.$emit(startprefs.CONSENTED_EVENT, $rootScope.req_consent);
+          console.log("end of mark consented");
       });
     };
 
