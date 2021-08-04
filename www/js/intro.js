@@ -68,18 +68,18 @@ angular.module('emission.intro', ['emission.splash.startprefs',
   var allIntroFiles = Promise.all([
     i18nUtils.geti18nFileName("templates/", "intro/summary", ".html"),
     i18nUtils.geti18nFileName("templates/", "intro/consent", ".html"),
-    i18nUtils.geti18nFileName("templates/", "intro/survey", ".html"),
     i18nUtils.geti18nFileName("templates/", "intro/sensor_explanation", ".html"),
-    i18nUtils.geti18nFileName("templates/", "intro/login", ".html")
+    i18nUtils.geti18nFileName("templates/", "intro/login", ".html"),
+    i18nUtils.geti18nFileName("templates/", "intro/survey", ".html")
   ]);
   allIntroFiles.then(function(allIntroFilePaths) {
     $scope.$apply(function() {
       console.log("intro files are "+allIntroFilePaths);
       $scope.summaryFile = allIntroFilePaths[0];
       $scope.consentFile = allIntroFilePaths[1];
-      $scope.surveyFile = allIntroFilePaths[2];
-      $scope.explainFile = allIntroFilePaths[3];
-      $scope.loginFile = allIntroFilePaths[4];
+      $scope.explainFile = allIntroFilePaths[2];
+      $scope.loginFile = allIntroFilePaths[3];
+      $scope.surveyFile = allIntroFilePaths[4];
     });
   });
 
@@ -183,7 +183,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
              client: retVal
             });
           });
-          $scope.finish();
+          $scope.next();
         }, function(errorResult) {
           $scope.alertError('User registration error', errorResult);
         });
