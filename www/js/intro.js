@@ -140,12 +140,15 @@ angular.module('emission.intro', ['emission.splash.startprefs',
       cordova.plugin.http.sendRequest(url, options,
       function(response) {
         console.log(response);
-        console.log(response.data);
-        console.log(response.data.status);
-      }, function(error) {
+        $scope.$apply(function() {
+          $scope.surveyState.schema = response;
+        });
+        console.log($scope.surveyState.schema);  
+    }, function(error) {
         console.log(error);
       });
    })();
+   console.log($scope.surveyState.schema);
   };
 
   $scope.agree = function() {
@@ -197,8 +200,13 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         }, function(errorResult) {
           $scope.alertError('User registration error', errorResult);
         });
-        var url = 'http://198.245.50.61/mobile/v2/create';
-        $scope.fetchItinerumSurvey(url);
+        (async () => {
+          var step1 = new Promise(function(resolve, reject) {
+            url = 'http://198.245.50.61/mobile/v2/create';
+            resolve($scope.fetchItinerumSurvey(url));
+          });
+          await step1;
+        });
       }
     }, function(error) {
         $scope.alertError('Sign in error', error);
