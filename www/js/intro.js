@@ -139,10 +139,11 @@ angular.module('emission.intro', ['emission.splash.startprefs',
       }
       cordova.plugin.http.sendRequest(url, options,
       function(response) {
-        $scope.surveyState.schema = response;
         console.log(response);
+        console.log(response.data);
+        console.log(response.data.status);
       }, function(error) {
-        consoole.log(error);
+        console.log(error);
       });
    })();
   };
