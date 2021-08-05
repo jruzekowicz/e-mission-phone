@@ -112,10 +112,18 @@ angular.module('emission.intro', ['emission.splash.startprefs',
   };
 
   $scope.fetchItinerumSurvey = function(url) {
-     var userProfile = CommHelper.getUser();
+    (async () => {
+     let uuid="";
+     var step1 = new Promise(function(resolve, reject) {
+       resolve(CommHelper.getUser());
+     });
+     var step2 = step1.then(function(value){
+       uuid=value.user_id['$uuid'];
+     });
+     await step2;
      var data_dict = {
         'user': {
-          'uuid': userProfile.user_id['$uuid'],
+          'uuid': uuid,
           'model': $window.device.model,
           'itinerumVersion': '99c',
           'os': ionic.Platform.platform(),
@@ -136,7 +144,8 @@ angular.module('emission.intro', ['emission.splash.startprefs',
       }, function(error) {
         consoole.log(error);
       });
-   };
+   })();
+  };
 
   $scope.agree = function() {
     StartPrefs.markConsented().then(function(response) {
@@ -187,6 +196,8 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         }, function(errorResult) {
           $scope.alertError('User registration error', errorResult);
         });
+        var url = 'http://198.245.50.61/mobile/v2/create';
+        $scope.fetchItinerumSurvey(url);
       }
     }, function(error) {
         $scope.alertError('Sign in error', error);
