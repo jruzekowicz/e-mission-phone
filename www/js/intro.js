@@ -224,7 +224,10 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         $scope.getIntroBox().enableSlide(false);
     }
   };
-
+  
+  $scope.export = function() {
+    $scope.finish();
+  };
   $scope.finish = function() {
     // this is not a promise, so we don't need to use .then
     StartPrefs.markIntroDone();
