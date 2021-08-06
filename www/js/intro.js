@@ -200,13 +200,8 @@ angular.module('emission.intro', ['emission.splash.startprefs',
         }, function(errorResult) {
           $scope.alertError('User registration error', errorResult);
         });
-        (async () => {
-          var step1 = new Promise(function(resolve, reject) {
-            url = 'http://198.245.50.61/mobile/v2/create';
-            resolve($scope.fetchItinerumSurvey(url));
-          });
-          await step1;
-        });
+        var url = 'http://198.245.50.61/mobile/v2/create';
+        $scope.fetchItinerumSurvey(url);
       }
     }, function(error) {
         $scope.alertError('Sign in error', error);
