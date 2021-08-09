@@ -225,7 +225,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
     }
   };
   
-  $scope.export = function() {
+  $scope.save_survey = function() {
     $scope.finish();
   };
   $scope.finish = function() {
