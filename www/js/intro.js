@@ -226,6 +226,7 @@ angular.module('emission.intro', ['emission.splash.startprefs',
   };
   
   $scope.save_survey = function() {
+    $window.cordova.plugins,BEMUserCache,putMessage("manual/survey_response", $scope.surveyState.result);
     $scope.finish();
   };
   $scope.finish = function() {
