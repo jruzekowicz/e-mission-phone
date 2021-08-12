@@ -12,6 +12,8 @@ class TutorialComponent extends React.Component {
       super(props);
       this.state = {
         result: {
+          start_ts: this.props.result.start_ts,
+          end_ts: this.props.schema.end_ts,
           fname: this.props.schema.fname,
           lname: this.props.schema.lname
         }

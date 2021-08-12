@@ -25,8 +25,8 @@ angular.module('emission.intro', ['emission.splash.startprefs',
 
   $scope.surveyState = { 
     isValid: true, 
-    schema: {'fname':'Jenna', 'lname':'Ruzekowicz'},
-    result: {'fname':'', 'lname':''} 
+    schema: {'start_ts':'', 'end_ts':'', 'fname':'Jenna', 'lname':'Ruzekowicz'},
+    result: {'start_ts':'', 'end_ts':'', 'fname':'', 'lname':''} 
   };
   $scope.changeresult = function(value) {
       $scope.surveyState.result = value
@@ -139,16 +139,17 @@ angular.module('emission.intro', ['emission.splash.startprefs',
       }
       cordova.plugin.http.sendRequest(url, options,
       function(response) {
-        console.log(response);
         $scope.$apply(function() {
           $scope.surveyState.schema = response;
         });
-        console.log($scope.surveyState.schema);  
     }, function(error) {
         console.log(error);
       });
    })();
-   console.log($scope.surveyState.schema);
+    $scope.$apply(function() {
+      $scope.surveyState.result.start_ts = new Date().getTime() / 1000;
+    });
+    console.log($scope.surveyState.result.start_ts);
   };
 
   $scope.agree = function() {
@@ -226,13 +227,19 @@ angular.module('emission.intro', ['emission.splash.startprefs',
   };
   
   $scope.save_survey = function() {
-    console.log("Getting inside the save_survey state");
+    $scope.surveyState.result.end_ts = new Date().getTime() / 1000;
     $window.cordova.plugins.BEMUserCache.putMessage("manual/survey_response", $scope.surveyState.result);
-    console.log("getting after the putMessage");
     $scope.finish();
   };
+
+  $scope.end_ts = function() {
+    $scope.$apply(function() {
+      $scope.surveyState.result.end_ts = new Date().getTime() / 1000;
+    });
+  }
   $scope.finish = function() {
     // this is not a promise, so we don't need to use .then
+    console.log($scope.surveyState.result);
     StartPrefs.markIntroDone();
     $scope.getIntroBox().slide(0);
     StartPrefs.loadPreferredScreen();
